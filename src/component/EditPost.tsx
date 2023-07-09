@@ -1,0 +1,27 @@
+import React from 'react'
+import { PostData, Tag } from "../App"
+import { PostForm } from "./PostForm"
+import { usePost } from "./PostLayout"
+
+type EditPostProps = {
+  onSubmit: (id: string, data: PostData) => void
+  onAddTag: (tag: Tag) => void
+  availableTags: Tag[]
+}
+
+export function EditPost({ onSubmit, onAddTag, availableTags }: EditPostProps) {
+  const post = usePost()
+  return (
+    <>
+      <h1 className="mb-4">Edit Post</h1>
+      <PostForm
+        title={post.title}
+        markdown={post.markdown}
+        tags={post.tags}
+        onSubmit={data => onSubmit(post.id, data)}
+        onAddTag={onAddTag}
+        availableTags={availableTags}
+      />
+    </>
+  )
+}
