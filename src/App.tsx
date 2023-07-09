@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext, useMemo } from "react";
+import { useEffect, useContext, useMemo } from "react";
 import {
   Routes,
   Route,
@@ -120,11 +120,11 @@ export default function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
-      {/* <Route path="profile" element={
+      <Route path="profile" element={
           <RequireAuth>
             <Profile />
           </RequireAuth>}
-        /> */}
+        />
       <Route path="/postlist" element={currentUser ? <RequireAuth><PostList availableTags={tags} posts={postsWithTags}
       onUpdateTag={updateTag} onDeleteTag={deleteTag}
       /></RequireAuth> : <Login />} />
