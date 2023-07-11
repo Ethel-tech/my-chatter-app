@@ -6,7 +6,9 @@ import {
   signInWithEmailAndPassword,
   NextOrObserver,
   User,
-  
+  connectAuthEmulator,
+    sendPasswordResetEmail,
+    confirmPasswordReset
 } from "firebase/auth";
 import { getFirebaseConfig } from "./FirebaseConfig";
 
@@ -24,3 +26,20 @@ export const userStateListener = (callback: NextOrObserver<User>) => {
 };
 
 export const SignOutUser = async () => await signOut(auth);
+
+
+if (process.env.NODE_ENV === 'development') {
+  connectAuthEmulator(auth, "http://localhost:9099");
+}
+
+export const passwordReset = async (email: string) => {
+  return await sendPasswordResetEmail(auth, email)
+}
+
+export const confirmThePasswordReset = async (
+  oobCode:string, newPassword:string
+) => {
+  if(!oobCode && !newPassword) return;
+  
+  return await confirmPasswordReset(auth, oobCode, newPassword)
+}

@@ -1,4 +1,3 @@
-import { type } from 'os';
 import React from 'react'
 import { useRef, FormEvent, useState } from "react";
 import { Form, Stack,Row,Col, Button } from "react-bootstrap";
@@ -26,7 +25,7 @@ export function PostForm({onSubmit, onAddTag, availableTags, title="", markdown=
       markdown: markdownRef.current!.value,
       tags: selectTags
     })
-    navigate('..')
+    navigate('./post-list')
   }
   return (
     <>
@@ -71,7 +70,7 @@ export function PostForm({onSubmit, onAddTag, availableTags, title="", markdown=
               <Button type='submit' variant='primary'>
                 Save
               </Button>
-              <Link to="..">
+              <Link to="./post-list">
               <Button type='button' variant='outline-secondary'>
                 Cancel
               </Button>

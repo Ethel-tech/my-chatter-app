@@ -1,5 +1,5 @@
 import React from "react"
-import { useMemo, useState } from "react"
+import { useMemo, useState, useContext } from "react"
 import {
   Badge,
   Button,
@@ -14,6 +14,7 @@ import { Link } from "react-router-dom"
 import ReactSelect from "react-select"
 import { Tag } from "../App"
 import styles from "./PostList.module.css"
+import { AuthContext } from "../context/Authcontext"
 
 type SimplifiedPost = {
   tags: Tag[]
@@ -45,6 +46,8 @@ export function PostList({
   const [selectedTags, setSelectedTags] = useState<Tag[]>([])
   const [title, setTitle] = useState("")
   const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false)
+  const { currentUser, signOut } = useContext(AuthContext);
+
 
   const filteredPosts = useMemo(() => {
     return posts.filter(post => {
@@ -61,9 +64,14 @@ export function PostList({
 
   return (
     <>
+    <Row>
+      <Col>    <h1>Welcome! {currentUser?.email}</h1></Col>
+      <Col><Button variant="primary" onClick={signOut}>Sign Out</Button></Col>
+    </Row>
+
       <Row className="align-items-center mb-4">
         <Col>
-          <h1>Posts</h1>
+          <h2>Posts</h2>
         </Col>
         <Col xs="auto">
           <Stack gap={2} direction="horizontal">

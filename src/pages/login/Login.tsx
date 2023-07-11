@@ -133,7 +133,7 @@ export default function Login() {
 
             {/* <!-- Login link --> */}
             <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
-              Do not have an account?
+             Do not have an account?
               <Link
                 to="./register"
                 className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"

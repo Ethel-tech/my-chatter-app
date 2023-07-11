@@ -9,7 +9,7 @@ import {
 import LandingPage from "./pages/home/LandingPage";
 import { AuthContext } from "./context/Authcontext";
 import Login from "./pages/login/Login";
-import Profile from "./routes/Profile";
+// import Profile from "./routes/Profile";
 import Register from "./routes/Register";
 import ConfirmEmail from "./routes/ConfirmEmail";
 import AuthUserActions from "./routes/AuthUserAction";
@@ -24,6 +24,8 @@ import { EditPost } from "./component/EditPost";
 import { Post } from "./component/Post";
 import { PostLayout } from "./component/PostLayout";
 import RequireAuth from "./component/Require-auth";
+import ForgotPassword from "./routes/ForgotPassword";
+import PasswordReset from "./routes/PasswordReset";
 
 export type Post ={
   id: string
@@ -112,7 +114,7 @@ export default function App() {
 
   useEffect(() => {
     if (currentUser) {
-      navigate("/profile");
+      navigate("/postList");
     }
   }, [currentUser]);
   return (
@@ -120,12 +122,12 @@ export default function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
-      <Route path="profile" element={
+      {/* <Route path="profile" element={
           <RequireAuth>
             <Profile />
           </RequireAuth>}
-        />
-      <Route path="/postlist" element={currentUser ? <RequireAuth><PostList availableTags={tags} posts={postsWithTags}
+        /> */}
+      <Route path="/post-list" element={currentUser ? <RequireAuth><PostList availableTags={tags} posts={postsWithTags}
       onUpdateTag={updateTag} onDeleteTag={deleteTag}
       /></RequireAuth> : <Login />} />
       <Route path="/register" element={<Register />} />
@@ -143,6 +145,14 @@ export default function App() {
       <Route index element={<Post onDelete={onDeletePost}/>}/>
         <Route path="edit" element={<EditPost onSubmit={onUpdatePost} onAddTag={addTag} availableTags={tags}/>}/>
       </Route>
+      <Route 
+          path="forgot-password" 
+          element={<ForgotPassword />} 
+        />
+        <Route
+          path="emulator/action" 
+          element={<PasswordReset />} 
+        />
       <Route path="*" element={<Navigate to ="/"/>}/>
     </Routes>
     </Container>
