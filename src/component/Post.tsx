@@ -1,16 +1,36 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Badge, Button, Col, Row, Stack } from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
 import { usePost } from "./PostLayout"
 import ReactMarkdown from "react-markdown"
+import { ThumbUp } from "@mui/icons-material";
+import './poststyles.css'
+
 
 type PostProps = {
   onDelete: (id: string) => void
 }
 
-export function Post({ onDelete }: PostProps) {
+
+export function Post({  onDelete }: PostProps) {
   const post = usePost()
   const navigate = useNavigate()
+  const key = 'like';
+  const [like, setLike] = useState(() =>{
+    const persistedLike = window.localStorage.getItem(key)
+    return persistedLike !== null ? JSON.parse(persistedLike) : 0
+  });
+    const [isLiked, setIsLiked] = useState(false)
+
+useEffect(() =>{
+  window.localStorage.setItem(key, JSON.stringify(like))
+}, [like])
+
+    const likeHandler = () =>{
+        setLike(isLiked ? like - 1: like + 1)
+        setIsLiked(!isLiked)
+    };
+  
 
   return (
     <>
@@ -41,13 +61,21 @@ export function Post({ onDelete }: PostProps) {
             >
               Delete
             </Button>
-            <Link to="/">
+            <Link to="/post-list">
               <Button variant="outline-secondary">Back</Button>
             </Link>
           </Stack>
         </Col>
       </Row>
-      <ReactMarkdown>{post.markdown}</ReactMarkdown>
+      <ReactMarkdown className="contentMarkdown">{post.markdown}</ReactMarkdown>
+      <div className="likeDiv">
+      <ThumbUp
+    htmlColor="blue"
+    className="likeIcon"
+    onClick={likeHandler}
+    />
+    <span className="likespan">{like}</span>
+    </div>
     </>
   )
 }

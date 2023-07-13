@@ -24,7 +24,7 @@ export default function Login() {
 
       if (userCredential) {
         resetFormFields();
-        navigate("/profile");
+        navigate("/post-list");
       }
     } catch (error) {
       alert("User Sign In Failed");

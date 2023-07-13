@@ -114,7 +114,7 @@ export default function App() {
 
   useEffect(() => {
     if (currentUser) {
-      navigate("/postList");
+      navigate("/post-list");
     }
   }, [currentUser]);
   return (

@@ -15,6 +15,7 @@ import ReactSelect from "react-select"
 import { Tag } from "../App"
 import styles from "./PostList.module.css"
 import { AuthContext } from "../context/Authcontext"
+import './poststyles.css'
 
 type SimplifiedPost = {
   tags: Tag[]
@@ -64,8 +65,11 @@ export function PostList({
 
   return (
     <>
+    
     <Row>
-      <Col>    <h1>Welcome! {currentUser?.email}</h1></Col>
+      <Col> <h1 className="welcome mb-2 mt-0 text-5xl font-medium leading-tight text-primary">
+    Welcome! {currentUser?.displayName}
+</h1>   </Col>
       <Col><Button variant="primary" onClick={signOut}>Sign Out</Button></Col>
     </Row>
 
@@ -166,6 +170,7 @@ function PostCard({ id, title, tags }: SimplifiedPost) {
               ))}
             </Stack>
           )}
+          
         </Stack>
       </Card.Body>
     </Card>

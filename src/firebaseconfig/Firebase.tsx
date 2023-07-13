@@ -28,7 +28,7 @@ export const userStateListener = (callback: NextOrObserver<User>) => {
 export const SignOutUser = async () => await signOut(auth);
 
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'test') {
   connectAuthEmulator(auth, "http://localhost:9099");
 }
 

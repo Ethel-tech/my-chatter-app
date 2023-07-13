@@ -1,7 +1,7 @@
 import React from "react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { registerUser } from "../firebaseconfig/Registeration";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const defaultFormFields = {
   displayName: "",
@@ -13,6 +13,7 @@ const defaultFormFields = {
 function Register() {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+  const navigate = useNavigate()
 
   const resetFormFields = () => {
     return setFormFields(defaultFormFields);
@@ -21,6 +22,17 @@ function Register() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+// try{
+//   const userCredential = await registerUser(email, password, displayName)
+//   if (userCredential){
+//     resetFormFields()
+//     navigate('/post-list')
+//   } 
+// } catch(error:any){
+//   alert('Registeration failed try again')
+//   console.log(error.message)
+// }
+
     try {
       if (password !== confirmPassword) {
         alert("Passwords did not match.");
@@ -28,11 +40,13 @@ function Register() {
       }
       await registerUser(displayName, email, password);
       resetFormFields();
+      navigate('/post-list')
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         alert("Email already exists!");
       }
     }
+   
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
